@@ -1,6 +1,7 @@
 # ms-mda
 
-npm install
-npm run build
-npm link
-ms-mda (tap enter until finish)
+Pasos para arrancar
+- npm install
+- npm run build
+- npm link
+- ms-mda (presionar enter hasta termianr)
