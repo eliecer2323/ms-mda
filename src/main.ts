@@ -13,31 +13,31 @@ import type { Options } from "./types";
 export async function createProject(options: Options) {
   const targetDirectory = process.cwd();
   const currentFileUrl = import.meta.url;
-  // const templateDirectory = path.resolve(
-  //   decodeURI(fileURLToPath(currentFileUrl)),
-  //   "../../templates",
-  //   options.template.toLowerCase()
-  // );
+  const templateDirectory = path.resolve(
+    decodeURI(fileURLToPath(currentFileUrl)),
+    "../../templates"
+    // options.template.toLowerCase()
+  );
 
   const tasks = new Listr([
     {
       title: "Generate project files",
-      task: () => generateFiles(),
+      task: () => generateFiles(templateDirectory),
     },
     {
       title: "Initialize git",
       task: () => initGitRepo(targetDirectory),
       enabled: () => options.git,
     },
-    {
-      title: "Install dependencies",
-      task: () => installPackages(targetDirectory),
-      skip: () => {
-        if (!options.install) {
-          return "Pass --install or -i to automatically install dependencies";
-        }
-      },
-    },
+    // {
+    //   title: "Install dependencies",
+    //   task: () => installPackages(targetDirectory),
+    //   skip: () => {
+    //     if (!options.install) {
+    //       return "Pass --install or -i to automatically install dependencies";
+    //     }
+    //   },
+    // },
   ]);
 
   try {

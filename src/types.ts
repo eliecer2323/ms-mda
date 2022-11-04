@@ -1,5 +1,6 @@
 export type Args = string[];
 export type RawOptions = {
+  file?: string;
   git: boolean;
   install: boolean;
   skipPrompts: boolean;
