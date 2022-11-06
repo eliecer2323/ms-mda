@@ -11,6 +11,8 @@ const defaultOptions: Options = {
 
 // --yes flag is passed
 const skipOptions: Omit<Options, "template"> = {
+  projectName: "python-ms",
+  dataFile: "data.json",
   git: true,
   install: true,
 };
@@ -24,26 +26,23 @@ export async function promptForMissingOptions(
 
   const questions = [];
 
-  if (!options.file) {
+  if (!options.projectName) {
     questions.push({
       type: "input",
-      name: "file",
-      message: "Please type a filename",
+      name: "projectName",
+      message: "Please type your project name",
       validate: (value?: string) => !!value,
     });
   }
-  // if (!options.template) {
-  //     questions.push({
-  //         type: 'list',
-  //         name: 'template',
-  //         message: 'Please choose which project template to use',
-  //         choices: [
-  //             { name: 'JavaScript', value: 'javascript' },
-  //             { name: 'TypeScript', value: 'typescript' }
-  //         ],
-  //         default: defaultOptions.template
-  //     });
-  // }
+
+  if (!options.dataFile) {
+    questions.push({
+      type: "input",
+      name: "dataFile",
+      message: "Please type the data filename",
+      validate: (value?: string) => !!value && value.endsWith(".json"),
+    });
+  }
 
   if (!options.git) {
     questions.push({
@@ -66,6 +65,8 @@ export async function promptForMissingOptions(
   const answers = await inquirer.prompt(questions);
 
   return {
+    projectName: options.projectName || answers.projectName,
+    dataFile: options.dataFile || answers.dataFile,
     git: options.git || answers.git,
     install: options.install || answers.install,
     template: options.template || answers.template,

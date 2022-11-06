@@ -1,6 +1,7 @@
 export type Args = string[];
 export type RawOptions = {
-  file?: string;
+  projectName?: string;
+  dataFile?: string;
   git: boolean;
   install: boolean;
   skipPrompts: boolean;

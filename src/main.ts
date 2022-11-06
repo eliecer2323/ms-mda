@@ -1,28 +1,38 @@
 import chalk from "chalk";
 import Listr from "listr";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 
 import { copyTemplateFiles } from "./utils/copy-template-files";
-import { generateFiles } from "./utils/generate-files";
+import { renderFiles } from "./utils/render-files";
 import { initGitRepo } from "./utils/init-git-repo";
 import { installPackages } from "./utils/install-packages";
 
 import type { Options } from "./types";
 
 export async function createProject(options: Options) {
-  const targetDirectory = process.cwd();
+  const targetDirectory = `${process.cwd()}/${options.projectName}`;
+  console.log("targetDirectory: ", targetDirectory);
   const currentFileUrl = import.meta.url;
   const templateDirectory = path.resolve(
     decodeURI(fileURLToPath(currentFileUrl)),
-    "../../templates"
+    "../../templates",
+    "aplication"
     // options.template.toLowerCase()
   );
+  const dataFile = fs.readFileSync(`${options.dataFile}`, "utf8");
+  const dataModel = JSON.parse(dataFile);
+  // console.log(dataModel)
 
   const tasks = new Listr([
     {
-      title: "Generate project files",
-      task: () => generateFiles(templateDirectory),
+      title: "Copy project files",
+      task: () => copyTemplateFiles(templateDirectory, targetDirectory),
+    },
+    {
+      title: "Render project files",
+      task: () => renderFiles(targetDirectory, dataModel),
     },
     {
       title: "Initialize git",
