@@ -23,9 +23,10 @@ Alejandro Paolo Daza Corredor
 3. npm link
 4. Ubicarse en la ruta donde desea crear su proyecto (cd ....)
 5. ms-mda <...args...>
-6. docker build . -t test && docker run --name test --rm -p 5001:5000 test
+6. Ubicarse en la raiz del proyecto creado (cd <project_name>)
+7. docker build . -t test && docker run --name test --rm -p 5001:5000 test
 
-* algunos comandos pueden requerir ejecución con `sudo` dependiendo de los permisos en su maquina
+\*algunos comandos pueden requerir ejecución con `sudo` dependiendo de los permisos en su maquina
 
 ### Parametros
 
