@@ -21,8 +21,11 @@ Alejandro Paolo Daza Corredor
 1. npm install
 2. npm run build
 3. npm link
-4. ms-mda <...args...>
-5. docker build . -t test && docker run --name test --rm -p 5001:5000 test
+4. Ubicarse en la ruta donde desea crear su proyecto (cd ....)
+5. ms-mda <...args...>
+6. docker build . -t test && docker run --name test --rm -p 5001:5000 test
+
+* algunos comandos pueden requerir ejecución con `sudo` dependiendo de los permisos en su maquina
 
 ### Parametros
 
@@ -68,18 +71,6 @@ curl --location --request GET 'http://localhost:5001' \
 --data-raw ''
 ```
 
-- Consultar por id
-
-```
-curl --location --request GET 'http://localhost:5001/1' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "nombre": "b",
-    "apellido": "b",
-    "edad": "12"
-}'
-```
-
 - Insertar un nuevo registro
 
 ```
@@ -90,6 +81,13 @@ curl --location --request POST 'http://localhost:5001' \
     "apellido": "b",
     "edad": "12"
 }'
+```
+
+- Consultar por id
+
+```
+curl --location --request GET 'http://localhost:5001/1' \
+--data-raw ''
 ```
 
 - Editar un registro por id
